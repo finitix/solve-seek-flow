@@ -23,6 +23,7 @@ import TicketDetail from "./pages/user/TicketDetail";
 // Trainer Pages
 import TrainerVerification from "./pages/trainer/TrainerVerification";
 import TrainerDashboard from "./pages/trainer/TrainerDashboard";
+import TrainerTickets from "./pages/trainer/TrainerTickets";
 import SendProposal from "./pages/trainer/SendProposal";
 
 // Admin Pages
@@ -62,7 +63,7 @@ const App = () => (
 
           {/* Trainer Routes */}
           <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
-          <Route path="/trainer/tickets" element={<TrainerDashboard />} />
+          <Route path="/trainer/tickets" element={<TrainerTickets />} />
           <Route path="/trainer/send-proposal/:id" element={<SendProposal />} />
 
           {/* Admin Routes */}

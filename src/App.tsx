@@ -19,12 +19,15 @@ import UserDashboard from "./pages/user/UserDashboard";
 import CreateTicket from "./pages/user/CreateTicket";
 import MyTickets from "./pages/user/MyTickets";
 import TicketDetail from "./pages/user/TicketDetail";
+import Chat from "./pages/user/Chat";
 
 // Trainer Pages
 import TrainerVerification from "./pages/trainer/TrainerVerification";
 import TrainerDashboard from "./pages/trainer/TrainerDashboard";
 import TrainerTickets from "./pages/trainer/TrainerTickets";
-import SendProposal from "./pages/trainer/SendProposal";
+import TrainerProfile from "./pages/trainer/TrainerProfile";
+import TrainersList from "./pages/trainer/TrainersList";
+import TrainerChat from "./pages/trainer/TrainerChat";
 
 // Admin Pages
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -60,11 +63,14 @@ const App = () => (
           <Route path="/create-ticket" element={<CreateTicket />} />
           <Route path="/my-tickets" element={<MyTickets />} />
           <Route path="/ticket/:id" element={<TicketDetail />} />
+          <Route path="/chat/:ticketId" element={<Chat />} />
 
           {/* Trainer Routes */}
+          <Route path="/trainers" element={<TrainersList />} />
+          <Route path="/trainer/:id" element={<TrainerProfile />} />
           <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
           <Route path="/trainer/tickets" element={<TrainerTickets />} />
-          <Route path="/trainer/send-proposal/:id" element={<SendProposal />} />
+          <Route path="/trainer/chat/:ticketId" element={<TrainerChat />} />
 
           {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 // Pages
 import Index from "./pages/Index";
@@ -41,52 +42,62 @@ import Payment from "./pages/shared/Payment";
 
 const queryClient = new QueryClient();
 
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Landing */}
+        <Route path="/" element={<Index />} />
+
+        {/* Auth Routes */}
+        <Route path="/signup" element={<UserSignup />} />
+        <Route path="/login" element={<UserLogin />} />
+        <Route path="/trainer/login" element={<TrainerLogin />} />
+        <Route path="/trainer/verify" element={<TrainerVerification />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        {/* User Routes */}
+        <Route path="/dashboard" element={<UserDashboard />} />
+        <Route path="/create-ticket" element={<CreateTicket />} />
+        <Route path="/my-tickets" element={<MyTickets />} />
+        <Route path="/ticket/:id" element={<TicketDetail />} />
+        <Route path="/chat/:ticketId" element={<Chat />} />
+
+        {/* Trainer Routes */}
+        <Route path="/trainers" element={<TrainersList />} />
+        <Route path="/trainer/:id" element={<TrainerProfile />} />
+        <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
+        <Route path="/trainer/tickets" element={<TrainerTickets />} />
+        <Route path="/trainer/chat/:ticketId" element={<TrainerChat />} />
+
+        {/* Admin Routes */}
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/verifications" element={<AdminDashboard />} />
+        <Route path="/admin/tickets" element={<AdminDashboard />} />
+        <Route path="/admin/messages" element={<AdminMessages />} />
+
+        {/* Shared Routes */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/payment" element={<Payment />} />
+
+        {/* 404 */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          {/* Landing */}
-          <Route path="/" element={<Index />} />
-
-          {/* Auth Routes */}
-          <Route path="/signup" element={<UserSignup />} />
-          <Route path="/login" element={<UserLogin />} />
-          <Route path="/trainer/login" element={<TrainerLogin />} />
-          <Route path="/trainer/verify" element={<TrainerVerification />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
-
-          {/* User Routes */}
-          <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/create-ticket" element={<CreateTicket />} />
-          <Route path="/my-tickets" element={<MyTickets />} />
-          <Route path="/ticket/:id" element={<TicketDetail />} />
-          <Route path="/chat/:ticketId" element={<Chat />} />
-
-          {/* Trainer Routes */}
-          <Route path="/trainers" element={<TrainersList />} />
-          <Route path="/trainer/:id" element={<TrainerProfile />} />
-          <Route path="/trainer/dashboard" element={<TrainerDashboard />} />
-          <Route path="/trainer/tickets" element={<TrainerTickets />} />
-          <Route path="/trainer/chat/:ticketId" element={<TrainerChat />} />
-
-          {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
-          <Route path="/admin/verifications" element={<AdminDashboard />} />
-          <Route path="/admin/tickets" element={<AdminDashboard />} />
-          <Route path="/admin/messages" element={<AdminMessages />} />
-
-          {/* Shared Routes */}
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/notifications" element={<Notifications />} />
-          <Route path="/payment" element={<Payment />} />
-
-          {/* 404 */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

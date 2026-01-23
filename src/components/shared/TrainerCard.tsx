@@ -18,14 +18,34 @@ const TrainerCard = ({ trainer, onSelect, showSelectButton = false }: TrainerCar
       className="ultra-card group"
     >
       <div className="flex items-start gap-4">
+        {/* Avatar with real image */}
         <motion.div 
-          whileHover={{ scale: 1.15, rotate: 10 }}
+          whileHover={{ scale: 1.1 }}
           transition={{ type: "spring", stiffness: 400 }}
-          className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center shadow-xl shadow-primary/40 flex-shrink-0"
+          className="relative flex-shrink-0"
         >
-          <span className="text-white font-black text-2xl">
-            {trainer.name.charAt(0)}
-          </span>
+          {trainer.avatar ? (
+            <img 
+              src={trainer.avatar} 
+              alt={trainer.name}
+              className="w-16 h-16 rounded-2xl object-cover shadow-xl shadow-primary/20"
+            />
+          ) : (
+            <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center shadow-xl shadow-primary/40">
+              <span className="text-white font-black text-2xl">
+                {trainer.name.charAt(0)}
+              </span>
+            </div>
+          )}
+          {trainer.verified && (
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-card border-2 border-primary flex items-center justify-center"
+            >
+              <Verified size={14} className="text-primary" />
+            </motion.div>
+          )}
         </motion.div>
         
         <div className="flex-1 min-w-0">
@@ -36,20 +56,9 @@ const TrainerCard = ({ trainer, onSelect, showSelectButton = false }: TrainerCar
             >
               {trainer.name}
             </Link>
-            {trainer.verified && (
-              <motion.div
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ type: "spring", stiffness: 400, delay: 0.2 }}
-                className="relative"
-              >
-                <div className="absolute inset-0 bg-primary/30 rounded-full blur-md" />
-                <Verified size={22} className="text-primary fill-primary/20 relative" />
-              </motion.div>
-            )}
           </div>
           
-          <div className="flex items-center gap-3 mt-3">
+          <div className="flex items-center gap-3 mt-2">
             <motion.div 
               whileHover={{ scale: 1.1 }}
               className="flex items-center gap-1.5 bg-gradient-to-r from-warning/20 to-warning/10 px-3 py-1.5 rounded-full border border-warning/30"
@@ -105,7 +114,7 @@ const TrainerCard = ({ trainer, onSelect, showSelectButton = false }: TrainerCar
         </motion.div>
         <motion.div 
           whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2.5 text-muted-foreground"
+          className="flex items-center gap-2.5 text-muted-foreground hidden sm:flex"
         >
           <div className="w-10 h-10 rounded-xl bg-warning/10 flex items-center justify-center">
             <DollarSign size={18} className="text-warning" />

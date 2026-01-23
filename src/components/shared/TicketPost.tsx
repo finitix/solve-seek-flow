@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, MessageCircle, Share2, CheckCircle, Star, Sparkles } from "lucide-react";
+import { Heart, MessageCircle, Share2, CheckCircle, Star, Sparkles, ExternalLink } from "lucide-react";
 import { Ticket } from "@/data/mockData";
 import { useState } from "react";
 
@@ -19,30 +19,30 @@ const TicketPost = ({ ticket }: TicketPostProps) => {
 
   return (
     <motion.div 
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.3 }}
-      className="premium-card group"
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="ultra-card group"
     >
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
           <motion.div 
-            whileHover={{ scale: 1.1 }}
-            className="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center shadow-lg shadow-primary/20"
+            whileHover={{ scale: 1.15, rotate: 10 }}
+            transition={{ type: "spring", stiffness: 400 }}
+            className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-xl shadow-primary/30"
           >
-            <span className="text-white font-bold text-lg">
+            <span className="text-white font-black text-xl">
               {ticket.userName.charAt(0)}
             </span>
           </motion.div>
           <div>
-            <p className="font-semibold text-lg">{ticket.userName}</p>
+            <p className="font-bold text-lg">{ticket.userName}</p>
             <p className="text-sm text-muted-foreground">{ticket.createdAt}</p>
           </div>
         </div>
         <motion.span 
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          className="bg-success/10 text-success text-xs font-semibold px-3 py-1.5 rounded-full flex items-center gap-1.5 border border-success/20"
+          whileHover={{ scale: 1.05 }}
+          className="status-badge status-solved flex items-center gap-1.5"
         >
           <CheckCircle size={14} />
           Solved
@@ -50,15 +50,15 @@ const TicketPost = ({ ticket }: TicketPostProps) => {
       </div>
 
       {/* Content */}
-      <div className="mt-5">
-        <h3 className="font-bold text-xl group-hover:text-primary transition-colors">{ticket.title}</h3>
-        <p className="text-muted-foreground mt-3 leading-relaxed">{ticket.description}</p>
+      <div className="mt-6">
+        <h3 className="font-bold text-xl md:text-2xl group-hover:gradient-text transition-all duration-500">{ticket.title}</h3>
+        <p className="text-muted-foreground mt-4 leading-relaxed text-lg">{ticket.description}</p>
         
         <motion.div 
-          className="mt-4 flex items-center gap-2"
-          whileHover={{ x: 4 }}
+          className="mt-5 inline-flex"
+          whileHover={{ scale: 1.05, x: 5 }}
         >
-          <span className="bg-gradient-to-r from-primary/10 to-accent/10 text-primary text-xs font-semibold px-4 py-2 rounded-full border border-primary/20">
+          <span className="px-5 py-2.5 rounded-2xl text-sm font-bold gradient-bg text-white shadow-lg shadow-primary/30">
             {ticket.category}
           </span>
         </motion.div>
@@ -67,15 +67,16 @@ const TicketPost = ({ ticket }: TicketPostProps) => {
       {/* Solution */}
       {ticket.solution && (
         <motion.div 
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-5 bg-gradient-to-br from-success/5 to-success/10 border border-success/20 rounded-2xl p-5"
+          className="mt-6 bg-gradient-to-br from-success/5 via-success/10 to-success/5 border border-success/20 rounded-3xl p-6 relative overflow-hidden"
         >
-          <p className="text-sm font-semibold text-success mb-2 flex items-center gap-2">
-            <Sparkles size={16} />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-success/10 rounded-full blur-3xl" />
+          <p className="text-base font-bold text-success mb-3 flex items-center gap-2 relative">
+            <Sparkles size={18} />
             Solution
           </p>
-          <p className="text-muted-foreground leading-relaxed">{ticket.solution}</p>
+          <p className="text-muted-foreground leading-relaxed text-base relative">{ticket.solution}</p>
         </motion.div>
       )}
 
@@ -83,55 +84,62 @@ const TicketPost = ({ ticket }: TicketPostProps) => {
       {ticket.trainerName && (
         <Link to={`/trainer/${ticket.trainerId}`}>
           <motion.div 
-            whileHover={{ scale: 1.02, y: -2 }}
-            className="mt-5 border border-border/50 rounded-2xl p-4 hover:border-primary/30 hover:bg-muted/30 transition-all duration-300"
+            whileHover={{ scale: 1.02 }}
+            className="mt-6 border-2 border-border/50 rounded-2xl p-5 hover:border-primary/40 hover:bg-primary/5 transition-all duration-500 group/trainer flex items-center justify-between"
           >
-            <p className="text-xs text-muted-foreground mb-2 font-medium">Solved by</p>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-md">
-                <span className="text-white text-sm font-bold">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl gradient-bg flex items-center justify-center shadow-lg shadow-primary/30">
+                <span className="text-white font-bold">
                   {ticket.trainerName.charAt(0)}
                 </span>
               </div>
               <div>
-                <p className="font-semibold">{ticket.trainerName}</p>
-                <div className="flex items-center gap-1.5">
+                <p className="text-xs text-muted-foreground font-medium mb-0.5">Solved by</p>
+                <p className="font-bold text-lg">{ticket.trainerName}</p>
+                <div className="flex items-center gap-2 mt-1">
                   <Star className="text-warning fill-warning" size={14} />
-                  <span className="text-xs text-muted-foreground font-medium">Verified Trainer</span>
+                  <span className="text-xs text-muted-foreground font-semibold">Verified Trainer</span>
                 </div>
               </div>
             </div>
+            <ExternalLink size={20} className="text-muted-foreground group-hover/trainer:text-primary transition-colors" />
           </motion.div>
         </Link>
       )}
 
       {/* Actions */}
-      <div className="mt-5 pt-5 border-t border-border/50 flex items-center gap-8">
+      <div className="mt-6 pt-6 border-t border-border/50 flex items-center gap-10">
         <motion.button
-          whileTap={{ scale: 0.9 }}
+          whileTap={{ scale: 0.85 }}
           onClick={handleLike}
-          className={`flex items-center gap-2.5 text-sm font-medium transition-all duration-300 ${
+          className={`flex items-center gap-3 text-base font-semibold transition-all duration-300 ${
             liked ? "text-destructive" : "text-muted-foreground hover:text-destructive"
           }`}
         >
           <motion.div
-            animate={liked ? { scale: [1, 1.3, 1] } : {}}
-            transition={{ duration: 0.3 }}
+            animate={liked ? { scale: [1, 1.4, 1] } : {}}
+            transition={{ duration: 0.4 }}
           >
-            <Heart size={20} className={liked ? "fill-current" : ""} />
+            <Heart size={22} className={liked ? "fill-current" : ""} />
           </motion.div>
           <span>{likes}</span>
         </motion.button>
 
-        <button className="flex items-center gap-2.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-          <MessageCircle size={20} />
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          className="flex items-center gap-3 text-base font-semibold text-muted-foreground hover:text-primary transition-colors"
+        >
+          <MessageCircle size={22} />
           <span>{ticket.comments}</span>
-        </button>
+        </motion.button>
 
-        <button className="flex items-center gap-2.5 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-          <Share2 size={20} />
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          className="flex items-center gap-3 text-base font-semibold text-muted-foreground hover:text-primary transition-colors"
+        >
+          <Share2 size={22} />
           <span>Share</span>
-        </button>
+        </motion.button>
       </div>
     </motion.div>
   );

@@ -1,5 +1,9 @@
 // Mock data for demo purposes
 
+import trainer1 from "@/assets/trainer-1.jpg";
+import trainer2 from "@/assets/trainer-2.jpg";
+import trainer3 from "@/assets/trainer-3.jpg";
+
 export interface User {
   id: string;
   name: string;
@@ -32,8 +36,10 @@ export interface Ticket {
   createdAt: string;
   userId: string;
   userName: string;
+  userAvatar?: string;
   trainerId?: string;
   trainerName?: string;
+  trainerAvatar?: string;
   solution?: string;
   likes: number;
   comments: number;
@@ -54,6 +60,7 @@ export const trainers: Trainer[] = [
     id: "t1",
     name: "Alex Thompson",
     email: "alex@techsolve.com",
+    avatar: trainer1,
     skills: ["Software Installation", "Network Issues", "Cloud Services"],
     rating: 4.9,
     reviews: 156,
@@ -67,6 +74,7 @@ export const trainers: Trainer[] = [
     id: "t2",
     name: "Sarah Chen",
     email: "sarah@techsolve.com",
+    avatar: trainer2,
     skills: ["Security", "Database Support", "Email Configuration"],
     rating: 4.8,
     reviews: 89,
@@ -80,6 +88,7 @@ export const trainers: Trainer[] = [
     id: "t3",
     name: "Mike Johnson",
     email: "mike@techsolve.com",
+    avatar: trainer3,
     skills: ["Hardware Problems", "Network Issues", "Software Installation"],
     rating: 4.7,
     reviews: 203,
@@ -93,6 +102,7 @@ export const trainers: Trainer[] = [
     id: "t4",
     name: "Emily Davis",
     email: "emily@techsolve.com",
+    avatar: trainer2,
     skills: ["Cloud Services", "Database Support", "Software Installation"],
     rating: 4.9,
     reviews: 124,
@@ -106,6 +116,7 @@ export const trainers: Trainer[] = [
     id: "t5",
     name: "David Wilson",
     email: "david@techsolve.com",
+    avatar: trainer1,
     skills: ["Email Configuration", "Network Issues", "Security"],
     rating: 4.6,
     reviews: 67,
@@ -125,11 +136,12 @@ export const solvedTickets: Ticket[] = [
     category: "Network Issues",
     urgency: "high",
     status: "solved",
-    createdAt: "2024-01-15",
+    createdAt: "2 days ago",
     userId: "u1",
     userName: "John Doe",
     trainerId: "t1",
     trainerName: "Alex Thompson",
+    trainerAvatar: trainer1,
     solution: "Updated network adapter drivers and reconfigured VPN client settings. Also disabled IPv6 which was causing conflicts.",
     likes: 24,
     comments: 5,
@@ -141,11 +153,12 @@ export const solvedTickets: Ticket[] = [
     category: "Software Installation",
     urgency: "normal",
     status: "solved",
-    createdAt: "2024-01-14",
+    createdAt: "3 days ago",
     userId: "u2",
     userName: "Jane Smith",
     trainerId: "t3",
     trainerName: "Mike Johnson",
+    trainerAvatar: trainer3,
     solution: "Removed conflicting antivirus temporarily, cleared Adobe temp files, and ran installer with admin privileges.",
     likes: 42,
     comments: 8,
@@ -157,11 +170,12 @@ export const solvedTickets: Ticket[] = [
     category: "Email Configuration",
     urgency: "high",
     status: "solved",
-    createdAt: "2024-01-13",
+    createdAt: "5 days ago",
     userId: "u3",
     userName: "Robert Chen",
     trainerId: "t2",
     trainerName: "Sarah Chen",
+    trainerAvatar: trainer2,
     solution: "Set up Microsoft 365 with custom domain, configured SPF, DKIM, and DMARC records for email security.",
     likes: 31,
     comments: 12,
@@ -173,11 +187,12 @@ export const solvedTickets: Ticket[] = [
     category: "Hardware Problems",
     urgency: "critical",
     status: "solved",
-    createdAt: "2024-01-12",
+    createdAt: "1 week ago",
     userId: "u4",
     userName: "Lisa Park",
     trainerId: "t3",
     trainerName: "Mike Johnson",
+    trainerAvatar: trainer3,
     solution: "Used data recovery software to clone the failing drive. Recovered 98% of data and set up automatic cloud backup.",
     likes: 56,
     comments: 15,
@@ -189,11 +204,12 @@ export const solvedTickets: Ticket[] = [
     category: "Cloud Services",
     urgency: "high",
     status: "solved",
-    createdAt: "2024-01-11",
+    createdAt: "1 week ago",
     userId: "u5",
     userName: "Mark Williams",
     trainerId: "t4",
     trainerName: "Emily Davis",
+    trainerAvatar: trainer2,
     solution: "Configured EC2 instances, RDS database, S3 storage, and CloudFront CDN. Set up CI/CD pipeline with CodePipeline.",
     likes: 67,
     comments: 21,

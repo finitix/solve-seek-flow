@@ -173,49 +173,30 @@
   }
 
   .glass-card {
-    @apply backdrop-blur-2xl border border-white/20 rounded-3xl p-8;
-    background: var(--gradient-glass);
-    box-shadow: var(--shadow-xl);
+    @apply backdrop-blur-xl border border-white/20 rounded-2xl p-4 md:p-6 bg-card/80;
+    box-shadow: var(--shadow-md);
   }
 
   .premium-card {
-    @apply bg-card rounded-3xl border border-border/50 p-7 transition-all duration-500 relative overflow-hidden;
-    box-shadow: var(--shadow-card);
-  }
-
-  .premium-card::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
-    background: var(--gradient-primary);
-    z-index: -1;
+    @apply bg-card rounded-2xl border border-border/60 p-5 md:p-7 transition-all duration-300;
+    box-shadow: var(--shadow-md);
   }
 
   .premium-card:hover {
-    @apply border-primary/40;
-    box-shadow: var(--shadow-card-hover);
-    transform: translateY(-6px) scale(1.01);
+    @apply border-primary/30;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
   }
 
   .ultra-card {
-    @apply relative rounded-3xl p-8 transition-all duration-700 overflow-hidden;
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .ultra-card::before {
-    content: '';
-    @apply absolute -inset-0.5 rounded-3xl opacity-0 transition-opacity duration-500 blur-sm;
-    background: var(--gradient-aurora);
-    z-index: -1;
-  }
-
-  .ultra-card:hover::before {
-    @apply opacity-60;
+    @apply relative rounded-2xl md:rounded-3xl p-5 md:p-8 transition-all duration-300 overflow-hidden bg-card border border-border/60;
+    box-shadow: var(--shadow-md);
   }
 
   .ultra-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-glow-lg);
+    @apply border-primary/30;
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
   }
 
   .gradient-text {

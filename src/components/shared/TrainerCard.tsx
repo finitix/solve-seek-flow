@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Star, CheckCircle, Clock, DollarSign, ArrowRight, Verified } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Trainer } from "@/data/mockData";
@@ -12,133 +11,101 @@ interface TrainerCardProps {
 
 const TrainerCard = ({ trainer, onSelect, showSelectButton = false }: TrainerCardProps) => {
   return (
-    <motion.div 
-      whileHover={{ y: -6, scale: 1.01 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="ultra-card group"
-    >
-      <div className="flex items-start gap-4">
+    <div className="ultra-card group">
+      <div className="flex items-start gap-3 sm:gap-4">
         {/* Avatar with real image */}
-        <motion.div 
-          whileHover={{ scale: 1.1 }}
-          transition={{ type: "spring", stiffness: 400 }}
-          className="relative flex-shrink-0"
-        >
+        <div className="relative flex-shrink-0">
           {trainer.avatar ? (
             <img 
               src={trainer.avatar} 
               alt={trainer.name}
-              className="w-16 h-16 rounded-2xl object-cover shadow-xl shadow-primary/20"
+              className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover"
             />
           ) : (
-            <div className="w-16 h-16 rounded-2xl gradient-bg flex items-center justify-center shadow-xl shadow-primary/40">
-              <span className="text-white font-black text-2xl">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl gradient-bg flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-lg sm:text-xl">
                 {trainer.name.charAt(0)}
               </span>
             </div>
           )}
           {trainer.verified && (
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-card border-2 border-primary flex items-center justify-center"
-            >
-              <Verified size={14} className="text-primary" />
-            </motion.div>
+            <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-card border-2 border-primary flex items-center justify-center">
+              <Verified size={12} className="text-primary" />
+            </div>
           )}
-        </motion.div>
+        </div>
         
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <Link 
               to={`/trainer/${trainer.id}`} 
-              className="font-bold text-xl group-hover:gradient-text transition-all duration-500"
+              className="font-bold text-base sm:text-lg hover:text-primary transition-colors truncate"
             >
               {trainer.name}
             </Link>
           </div>
           
-          <div className="flex items-center gap-3 mt-2">
-            <motion.div 
-              whileHover={{ scale: 1.1 }}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-warning/20 to-warning/10 px-3 py-1.5 rounded-full border border-warning/30"
-            >
-              <Star className="text-warning fill-warning" size={14} />
-              <span className="text-sm font-bold text-warning">{trainer.rating}</span>
-            </motion.div>
-            <span className="text-sm text-muted-foreground font-medium">
+          <div className="flex items-center gap-2 sm:gap-3 mt-1.5">
+            <div className="flex items-center gap-1 bg-warning/10 px-2 py-1 rounded-lg border border-warning/20">
+              <Star className="text-warning fill-warning" size={12} />
+              <span className="text-xs font-semibold text-warning">{trainer.rating}</span>
+            </div>
+            <span className="text-xs text-muted-foreground">
               ({trainer.reviews} reviews)
             </span>
           </div>
           
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="flex flex-wrap gap-1.5 mt-3">
             {trainer.skills.slice(0, 2).map((skill) => (
-              <motion.span
+              <span
                 key={skill}
-                whileHover={{ scale: 1.05 }}
-                className="text-xs font-semibold px-4 py-2 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 text-primary border border-primary/20"
+                className="text-xs font-medium px-2.5 py-1 rounded-lg bg-primary/10 text-primary border border-primary/20"
               >
                 {skill}
-              </motion.span>
+              </span>
             ))}
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="opacity-0 group-hover:opacity-100 transition-all duration-300 hidden md:flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10"
-        >
-          <ArrowRight size={20} className="text-primary" />
-        </motion.div>
+        <div className="hidden sm:flex items-center justify-center w-8 h-8 rounded-lg bg-muted group-hover:bg-primary/10 transition-colors">
+          <ArrowRight size={16} className="text-muted-foreground group-hover:text-primary transition-colors" />
+        </div>
       </div>
 
-      <div className="flex items-center gap-4 mt-6 pt-6 border-t border-border/50 text-sm">
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2.5 text-muted-foreground"
-        >
-          <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
-            <CheckCircle size={18} className="text-success" />
+      <div className="flex items-center gap-3 sm:gap-4 mt-4 pt-4 border-t border-border/50 text-xs sm:text-sm">
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+            <CheckCircle size={14} className="text-success" />
           </div>
-          <span className="font-semibold">{trainer.solvedTickets} solved</span>
-        </motion.div>
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2.5 text-muted-foreground"
-        >
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Clock size={18} className="text-primary" />
+          <span className="font-medium">{trainer.solvedTickets} solved</span>
+        </div>
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Clock size={14} className="text-primary" />
           </div>
-          <span className="font-semibold">{trainer.experience}</span>
-        </motion.div>
-        <motion.div 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2.5 text-muted-foreground hidden sm:flex"
-        >
-          <div className="w-10 h-10 rounded-xl bg-warning/10 flex items-center justify-center">
-            <DollarSign size={18} className="text-warning" />
+          <span className="font-medium hidden sm:inline">{trainer.experience}</span>
+          <span className="font-medium sm:hidden">{trainer.experience.split(' ')[0]}y</span>
+        </div>
+        <div className="flex items-center gap-2 text-muted-foreground hidden xs:flex">
+          <div className="w-8 h-8 rounded-lg bg-warning/10 flex items-center justify-center">
+            <DollarSign size={14} className="text-warning" />
           </div>
-          <span className="font-semibold">${trainer.hourlyRate}/hr</span>
-        </motion.div>
+          <span className="font-medium">${trainer.hourlyRate}/hr</span>
+        </div>
       </div>
 
       {showSelectButton && onSelect && (
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="mt-6"
-        >
+        <div className="mt-4">
           <Button 
-            className="w-full h-14 text-base" 
+            className="w-full h-11" 
             variant="hero"
             onClick={() => onSelect(trainer)}
           >
             Select Trainer
           </Button>
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

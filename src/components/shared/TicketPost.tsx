@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Heart, MessageCircle, Share2, CheckCircle, Star, Sparkles, ExternalLink, BookmarkPlus } from "lucide-react";
 import { Ticket } from "@/data/mockData";
 import { useState } from "react";
@@ -19,163 +18,120 @@ const TicketPost = ({ ticket }: TicketPostProps) => {
   };
 
   return (
-    <motion.div 
-      whileHover={{ y: -6 }}
-      transition={{ duration: 0.4, ease: "easeOut" }}
-      className="ultra-card group"
-    >
+    <div className="ultra-card group">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <motion.div 
-            whileHover={{ scale: 1.15, rotate: 5 }}
-            transition={{ type: "spring", stiffness: 400 }}
-            className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-xl shadow-primary/30"
-          >
-            <span className="text-white font-black text-xl">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl gradient-bg flex items-center justify-center shadow-md">
+            <span className="text-white font-bold text-base sm:text-lg">
               {ticket.userName.charAt(0)}
             </span>
-          </motion.div>
+          </div>
           <div>
-            <p className="font-bold text-lg">{ticket.userName}</p>
-            <p className="text-sm text-muted-foreground">{ticket.createdAt}</p>
+            <p className="font-semibold text-sm sm:text-base">{ticket.userName}</p>
+            <p className="text-xs text-muted-foreground">{ticket.createdAt}</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <motion.button
-            whileTap={{ scale: 0.9 }}
+          <button
             onClick={() => setSaved(!saved)}
-            className={`p-2 rounded-xl transition-colors ${saved ? 'bg-primary/10 text-primary' : 'hover:bg-muted'}`}
+            className={`p-2 rounded-lg transition-colors ${saved ? 'bg-primary/10 text-primary' : 'hover:bg-muted text-muted-foreground'}`}
           >
-            <BookmarkPlus size={20} className={saved ? 'fill-current' : ''} />
-          </motion.button>
-          <motion.span 
-            whileHover={{ scale: 1.05 }}
-            className="status-badge status-solved flex items-center gap-1.5"
-          >
-            <CheckCircle size={14} />
-            Solved
-          </motion.span>
+            <BookmarkPlus size={18} className={saved ? 'fill-current' : ''} />
+          </button>
+          <span className="status-badge status-solved flex items-center gap-1.5 text-xs">
+            <CheckCircle size={12} />
+            <span className="hidden sm:inline">Solved</span>
+          </span>
         </div>
       </div>
 
       {/* Content */}
-      <div className="mt-6">
-        <h3 className="font-bold text-xl md:text-2xl group-hover:gradient-text transition-all duration-500 leading-tight">{ticket.title}</h3>
-        <p className="text-muted-foreground mt-4 leading-relaxed text-base">{ticket.description}</p>
+      <div className="mt-4">
+        <h3 className="font-bold text-base sm:text-lg md:text-xl leading-snug">{ticket.title}</h3>
+        <p className="text-muted-foreground mt-2 text-sm sm:text-base leading-relaxed line-clamp-3">{ticket.description}</p>
         
-        <motion.div 
-          className="mt-5 inline-flex"
-          whileHover={{ scale: 1.05, x: 5 }}
-        >
-          <span className="px-5 py-2.5 rounded-2xl text-sm font-bold gradient-bg text-white shadow-lg shadow-primary/30">
+        <div className="mt-3">
+          <span className="inline-block px-3 py-1.5 rounded-lg text-xs font-semibold gradient-bg text-white">
             {ticket.category}
           </span>
-        </motion.div>
+        </div>
       </div>
 
       {/* Solution */}
       {ticket.solution && (
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 relative overflow-hidden rounded-3xl"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-success/10 via-success/5 to-transparent" />
-          <div className="relative border border-success/20 rounded-3xl p-6">
-            <p className="text-base font-bold text-success mb-3 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-success/20 flex items-center justify-center">
-                <Sparkles size={16} />
-              </div>
-              Solution
-            </p>
-            <p className="text-muted-foreground leading-relaxed text-base">{ticket.solution}</p>
-          </div>
-        </motion.div>
+        <div className="mt-4 rounded-xl bg-success/5 border border-success/20 p-4">
+          <p className="text-sm font-semibold text-success mb-2 flex items-center gap-2">
+            <Sparkles size={14} />
+            Solution
+          </p>
+          <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2">{ticket.solution}</p>
+        </div>
       )}
 
       {/* Trainer Info */}
       {ticket.trainerName && (
         <Link to={`/trainer/${ticket.trainerId}`}>
-          <motion.div 
-            whileHover={{ scale: 1.02, x: 5 }}
-            className="mt-6 border-2 border-border/50 rounded-2xl p-5 hover:border-primary/40 hover:bg-primary/5 transition-all duration-500 group/trainer flex items-center justify-between"
-          >
-            <div className="flex items-center gap-4">
+          <div className="mt-4 border border-border/50 rounded-xl p-3 sm:p-4 hover:border-primary/30 hover:bg-primary/5 transition-colors flex items-center justify-between">
+            <div className="flex items-center gap-3">
               {ticket.trainerAvatar ? (
                 <img 
                   src={ticket.trainerAvatar} 
                   alt={ticket.trainerName}
-                  className="w-14 h-14 rounded-2xl object-cover shadow-lg"
+                  className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover"
                 />
               ) : (
-                <div className="w-14 h-14 rounded-2xl gradient-bg flex items-center justify-center shadow-lg shadow-primary/30">
-                  <span className="text-white font-bold text-lg">
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl gradient-bg flex items-center justify-center">
+                  <span className="text-white font-bold">
                     {ticket.trainerName.charAt(0)}
                   </span>
                 </div>
               )}
               <div>
-                <p className="text-xs text-muted-foreground font-medium mb-0.5">Solved by</p>
-                <p className="font-bold text-lg">{ticket.trainerName}</p>
-                <div className="flex items-center gap-2 mt-1">
-                  <Star className="text-warning fill-warning" size={14} />
-                  <span className="text-xs text-muted-foreground font-semibold">Verified Trainer</span>
+                <p className="text-xs text-muted-foreground">Solved by</p>
+                <p className="font-semibold text-sm sm:text-base">{ticket.trainerName}</p>
+                <div className="flex items-center gap-1 mt-0.5">
+                  <Star className="text-warning fill-warning" size={12} />
+                  <span className="text-xs text-muted-foreground">Verified</span>
                 </div>
               </div>
             </div>
-            <motion.div
-              whileHover={{ x: 5 }}
-              className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center opacity-0 group-hover/trainer:opacity-100 transition-opacity"
-            >
-              <ExternalLink size={18} className="text-primary" />
-            </motion.div>
-          </motion.div>
+            <ExternalLink size={16} className="text-muted-foreground" />
+          </div>
         </Link>
       )}
 
       {/* Actions */}
-      <div className="mt-6 pt-6 border-t border-border/50 flex items-center justify-between">
-        <div className="flex items-center gap-6">
-          <motion.button
-            whileTap={{ scale: 0.85 }}
+      <div className="mt-4 pt-4 border-t border-border/50 flex items-center justify-between">
+        <div className="flex items-center gap-4 sm:gap-5">
+          <button
             onClick={handleLike}
-            className={`flex items-center gap-2.5 text-base font-semibold transition-all duration-300 ${
+            className={`flex items-center gap-2 text-sm font-medium transition-colors ${
               liked ? "text-destructive" : "text-muted-foreground hover:text-destructive"
             }`}
           >
-            <motion.div
-              animate={liked ? { scale: [1, 1.4, 1] } : {}}
-              transition={{ duration: 0.4 }}
-              className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center"
-            >
-              <Heart size={20} className={liked ? "fill-current" : ""} />
-            </motion.div>
+            <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
+              <Heart size={16} className={liked ? "fill-current" : ""} />
+            </div>
             <span>{likes}</span>
-          </motion.button>
+          </button>
 
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2.5 text-base font-semibold text-muted-foreground hover:text-primary transition-colors"
-          >
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <MessageCircle size={20} />
+          <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+              <MessageCircle size={16} />
             </div>
             <span>{ticket.comments}</span>
-          </motion.button>
+          </button>
         </div>
 
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          className="flex items-center gap-2.5 text-base font-semibold text-muted-foreground hover:text-primary transition-colors"
-        >
-          <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-            <Share2 size={20} />
+        <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+          <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center">
+            <Share2 size={16} />
           </div>
           <span className="hidden sm:inline">Share</span>
-        </motion.button>
+        </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
